@@ -39,16 +39,45 @@
 
 // ----Extra Credit 2 using a custom component with JSX----
 
-function Message({children}){
-  return <div className= "message">{children}</div>
+// function Message({children}){
+//   return <div className= "message">{children}</div>
+// }
+// const element =(
+//   <div className="container">
+//   <Message> Hello world</Message>
+//   <Message>GoodBye world</Message>
+//   </div>
+// )
+
+// -----Extra Credit 3 Runtime validation with PropTypes ---
+const PropTypes ={
+  string(props, propName, componentName){
+    const type =typeof props[propName]
+    if(type!== 'string'){
+      return new Error(
+        `Hey, the component ${componentName} needs the prop ${propName} to be `
+      )
+    }
+  },
 }
-const element =(
-  <div className="container">
-  <Message> Hello world</Message>
-  <Message>GoodBye world</Message>
+function Message ({subject, greeting}){
+  return(
+    <div className="message">
+    {greeting},{subject}</div>
+  )
+}
+
+Message.PropTypes ={
+  subject: PropTypes.string,
+  greeting: PropTypes.string,
+}
+
+const element= (
+  <div className ="container">
+  <Message subject="world"/>
+  <Message greeting="GoodBye" subject={5}/>
   </div>
 )
-
     // 💯 This is only the first step to making actual React components. The rest is in the extra credit!
     ReactDOM.render(element, document.getElementById('root'))
   </script>
